@@ -67,16 +67,36 @@ for (let i = 0; i < sections.length; i++) {
     const sectionElement = sections[i];
     console.log(sectionElement);
     let navLiElement = document.createElement('li');
-    navLiElement.innerText = sectionElement.querySelector('h2').innerText;
+    let navLiAElement = document.createElement('a');
+    navLiAElement.innerText = sectionElement.getAttribute('data-nav');
+    navLiAElement.setAttribute('href', '#' + sectionElement.getAttribute('id'));
+    navLiAElement.classList.add('menu__link');
     console.log(navLiElement);
+    navLiElement.appendChild(navLiAElement);
     navList.appendChild(navLiElement);
 }
 
 // Add class 'active' to section when near top of viewport
 
 
-// Scroll to anchor ID using scrollTO event
 
+// Scroll to anchor ID using scrollTO event
+let menuUl = document.querySelector('#navbar__list');
+menuUl.addEventListener('click', handleClick);
+
+function handleClick(e) {
+    const handlerElement = this;
+    const sourceElement = e.target;
+    const selector = "li a";
+    const closestelement = sourceElement.closest(selector);
+    if(handlerElement.contains(closestelement)) {
+        const delegatedelement = closestelement;
+        e.preventDefault();
+        let whereToScroll = document.querySelector(delegatedelement.getAttribute('href'));
+        console.log(whereToScroll);
+        whereToScroll.scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" });        
+    }
+}
 
 /**
  * End Main Functions
