@@ -22,6 +22,8 @@
  * Define Global Variables
  * 
 */
+const sections = document.querySelectorAll('section');
+
 
 
 /**
@@ -59,19 +61,18 @@ document.querySelector('main').appendChild(sectionFour);
 
 
 // build the nav
-let sections = document.querySelectorAll('section');
 let navList = document.querySelector('#navbar__list');
-console.log(navList);
+
 for (let i = 0; i < sections.length; i++) {
-    console.log(i + "th round");
+    
     const sectionElement = sections[i];
-    console.log(sectionElement);
+    
     let navLiElement = document.createElement('li');
     let navLiAElement = document.createElement('a');
     navLiAElement.innerText = sectionElement.getAttribute('data-nav');
     navLiAElement.setAttribute('href', '#' + sectionElement.getAttribute('id'));
     navLiAElement.classList.add('menu__link');
-    console.log(navLiElement);
+    
     navLiElement.appendChild(navLiAElement);
     navList.appendChild(navLiElement);
 }
@@ -109,5 +110,60 @@ function handleClick(e) {
 // Scroll to section on link click
 
 // Set sections as active
+
+function isInViewport(el) {
+    const rect = el.getBoundingClientRect();
+    console.log(el.getAttribute("id") + " rect top:" + rect.top + " rect bottom: " + rect.bottom + " masgasáh: " + (rect.bottom - rect.top) +  "window innerheight: " + window.innerHeight);
+    
+    let elemLathatoMagassag = 0;
+
+    if (rect.top >= 0 && rect.bottom <= window.innerHeight ) {
+            console.log(el.getAttribute('id') + "1.feltétel igaz");
+            
+            return true;        
+    }
+    // lent lóg ki
+    else if (rect.top >= 0 && rect.top < window.innerHeight / 2 ) {
+        console.log(el.getAttribute('id') + "2.feltétel igaz");
+            return true; 
+     
+    }
+
+    //fent lóg ki
+    else if (rect.top < 0 && rect.bottom > window.innerHeight / 2 ) {
+        console.log(el.getAttribute('id') + "3.feltétel igaz");
+        return true; 
+    }
+
+    else {
+        return false;
+    }
+}
+
+
+
+
+
+document.addEventListener('scroll', function () {
+    
+    for (let i = 0; i < sections.length; i++) {
+        if (isInViewport(sections[i])) {
+            if (!sections[i].classList.contains("your-active-class"))
+            sections[i].classList.add("your-active-class");
+            
+        }
+        else {
+            if (sections[i].classList.contains("your-active-class"))
+            sections[i].classList.remove("your-active-class");
+        }
+    }
+
+}, {
+    passive: true
+});
+
+
+
+
 
 
