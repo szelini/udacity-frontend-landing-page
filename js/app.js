@@ -83,15 +83,16 @@ function buildNavigation() {
 function addActiveClass() {
     for (let i = 0; i < sections.length; i++) {
         if (isInViewport(sections[i])) {
-            if (!sections[i].classList.contains("your-active-class"))
-                sections[i].classList.add("your-active-class");
+            sections[i].classList.add("section__active");
+            console.log(document.querySelector(`a[href='#${sections[i].id}']`).classList.add("menu__active"));
         }
         else {
-            if (sections[i].classList.contains("your-active-class"))
-                sections[i].classList.remove("your-active-class");
+            sections[i].classList.remove("section__active");
+            document.querySelector(`a[href='#${sections[i].id}']`).classList.remove("menu__active");
         }
     }
 }
+
 
 // Scroll to anchor ID using scrollTO event
 function handleClick(e) {
@@ -124,9 +125,6 @@ menuUl.addEventListener('click', handleClick);
 
 // Set sections as active
 document.addEventListener('scroll', () => addActiveClass(), { passive: true });
-
-
-
 
 
 
