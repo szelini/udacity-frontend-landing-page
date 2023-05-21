@@ -84,7 +84,7 @@ function addActiveClass() {
     for (let i = 0; i < sections.length; i++) {
         if (isInViewport(sections[i])) {
             sections[i].classList.add("section__active");
-            console.log(document.querySelector(`a[href='#${sections[i].id}']`).classList.add("menu__active"));
+            document.querySelector(`a[href='#${sections[i].id}']`).classList.add("menu__active");
         }
         else {
             sections[i].classList.remove("section__active");
